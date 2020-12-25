@@ -1,0 +1,99 @@
+[gd_scene load_steps=39 format=2]
+
+[ext_resource path="res://assets/enemy/die/die_3.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemy/attack/hit_4.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemy/die/die_4.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemy/appear/appear_3.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemy/die/die_2.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemy/walk/go_3.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemy/attack/hit_6.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemy/die/die_1.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemy/attack/hit_5.png" type="Texture" id=9]
+[ext_resource path="res://assets/enemy/attack/hit_8.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemy/die/die_5.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemy/walk/go_8.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemy/appear/appear_1.png" type="Texture" id=13]
+[ext_resource path="res://assets/enemy/appear/appear_4.png" type="Texture" id=14]
+[ext_resource path="res://assets/enemy/appear/appear_5.png" type="Texture" id=15]
+[ext_resource path="res://assets/enemy/die/die_6.png" type="Texture" id=16]
+[ext_resource path="res://assets/enemy/attack/hit_3.png" type="Texture" id=17]
+[ext_resource path="res://assets/enemy/appear/appear_6.png" type="Texture" id=18]
+[ext_resource path="res://assets/enemy/walk/go_4.png" type="Texture" id=19]
+[ext_resource path="res://assets/enemy/walk/go_5.png" type="Texture" id=20]
+[ext_resource path="res://assets/enemy/attack/hit_1.png" type="Texture" id=21]
+[ext_resource path="res://assets/enemy/appear/appear_8.png" type="Texture" id=22]
+[ext_resource path="res://assets/enemy/appear/appear_2.png" type="Texture" id=23]
+[ext_resource path="res://assets/enemy/die/die_8.png" type="Texture" id=24]
+[ext_resource path="res://assets/enemy/appear/appear_9.png" type="Texture" id=25]
+[ext_resource path="res://assets/enemy/appear/appear_10.png" type="Texture" id=26]
+[ext_resource path="res://assets/enemy/walk/go_1.png" type="Texture" id=27]
+[ext_resource path="res://assets/enemy/die/die_7.png" type="Texture" id=28]
+[ext_resource path="res://assets/enemy/walk/go_2.png" type="Texture" id=29]
+[ext_resource path="res://assets/enemy/attack/hit_7.png" type="Texture" id=30]
+[ext_resource path="res://assets/enemy/walk/go_7.png" type="Texture" id=31]
+[ext_resource path="res://assets/enemy/appear/appear_7.png" type="Texture" id=32]
+[ext_resource path="res://assets/enemy/walk/go_6.png" type="Texture" id=33]
+[ext_resource path="res://assets/enemy/attack/hit_2.png" type="Texture" id=34]
+[ext_resource path="res://src/Actors/Enemy.gd" type="Script" id=35]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 27 ), ExtResource( 29 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 33 ), ExtResource( 31 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "ene",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 23 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 32 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "appear",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 11 ), ExtResource( 16 ), ExtResource( 28 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "die",
+"speed": 5.2
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 34 ), ExtResource( 17 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 30 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "hit",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.0695, 28.1956 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 24.4084, 6.43376 )
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 2147483650
+collision_mask = 2147483657
+script = ExtResource( 35 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="enemy" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -37 )
+scale = Vector2( 0.2, 0.2 )
+frames = SubResource( 1 )
+animation = "hit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -8, -32 )
+shape = SubResource( 2 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -8, 0 )
+rect = Rect2( -18, -50, 36, 50 )
+process_parent = true
+physics_process_parent = true
+
+[node name="StompDetector" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.0037384, 0.0186336, 0.957031, 1 )
+position = Vector2( 0, -67.0844 )
+shape = SubResource( 3 )
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
