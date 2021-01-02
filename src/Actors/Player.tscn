@@ -63,15 +63,18 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 13.4526, 4.11951 )
+extents = Vector2( 9.32554, 3.04811 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 13.7758, 12.996 )
 
 [node name="Player" type="KinematicBody2D"]
-collision_mask = 8
+collision_mask = 24
 script = ExtResource( 80 )
-speed = Vector2( 800, 1000 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = Vector2( 800, 1300 )
 stomp_impulse = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -88,7 +91,7 @@ animation = "walk"
 current = true
 limit_left = 0
 limit_top = 0
-limit_right = 3519
+limit_right = 29000
 limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -104,7 +107,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.109804, 0.890196, 0.266667, 1 )
-position = Vector2( -0.107247, 23.9185 )
+position = Vector2( 0.115474, 26.8139 )
 shape = SubResource( 3 )
 
 [node name="die" type="Area2D" parent="."]

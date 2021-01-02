@@ -1,5 +1,7 @@
 extends "res://src/Actors/Actor.gd"
 
+
+
 func _ready() -> void:
 	set_physics_process(false)
 	_velocity.x = -speed.x
@@ -19,12 +21,12 @@ func _physics_process(delta: float) -> void:
 	_velocity.y = move_and_slide(_velocity, FLOOR_NORMAL).y
 # *************************** HIT ANIMATION ********************************
 	if _velocity.x != 0:
-		$enemy.animation = "hit"
+		$enemy.animation = "attack"
 		$enemy.play()
 		$enemy.flip_h = _velocity.x > 0
 # *************************** MAKE ENEMY OUT FROM WORLD  *******************
 	if $enemy.animation == "die":
-		if $enemy.frame == 7:
+		if $enemy.frame == 6:
 			queue_free()
 	
 
@@ -34,6 +36,8 @@ func die() -> void:
 	$enemy.animation = "die"
 	$enemy.play()
 	
+
+
 
 
 
